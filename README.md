@@ -11,6 +11,10 @@ A modern 3D zombie survival game built with Three.js featuring professional UI d
   </a>
 </p>
 
+## 📸 Preview
+
+https://github.com/user-attachments/assets/ac1ff468-1634-48f5-9327-cc1fa36014c2
+
 ## 🎮 Features
 
 - **Wave Survival**: Endless zombie waves with increasing difficulty
