@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zombie Survival FPS</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=Exo+2:wght@300;400;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&family=Fira+Code:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Main Menu -->
+    <div id="mainMenu" class="menu-screen active">
+      <h1>🧟 ZOMBIE SURVIVAL FPS 🧟</h1>
+      <div class="menu-buttons">
+        <button class="menu-button success" onclick="startGame()">
+          🎮 Start Game
+        </button>
+        <button class="menu-button" onclick="showInstructions()">
+          📖 Instructions
+        </button>
+      </div>
+      <p style="margin-top: 30px; opacity: 0.7">Built with Three.js</p>
+
+      <!-- Social Media Icons -->
+      <div class="social-icons">
+        <a
+          href="https://github.com/apoorvdarshan/zombie-game"
+          target="_blank"
+          class="social-icon github"
+          title="GitHub"
+        >
+          <i class="fab fa-github"></i>
+        </a>
+        <a
+          href="https://instagram.com/404apoorv"
+          target="_blank"
+          class="social-icon instagram"
+          title="Instagram"
+        >
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a
+          href="https://linkedin.com/in/apoorvdarshan"
+          target="_blank"
+          class="social-icon linkedin"
+          title="LinkedIn"
+        >
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a
+          href="https://twitter.com/apoorvdarshan"
+          target="_blank"
+          class="social-icon twitter"
+          title="X (Twitter)"
+        >
+          <span style="font-size: 18px; font-weight: bold">𝕏</span>
+        </a>
+        <a
+          href="https://youtube.com/@apoorvdarshan"
+          target="_blank"
+          class="social-icon youtube"
+          title="YouTube"
+        >
+          <i class="fab fa-youtube"></i>
+        </a>
+      </div>
+
+      <!-- Made by text -->
+      <p class="made-by">Made by Apoorv Darshan</p>
+    </div>
+
+    <!-- Instructions Menu -->
+    <div id="instructionsMenu" class="menu-screen">
+      <h2>📖 How to Play</h2>
+      <div class="instructions-content">
+        <h3>🎮 Controls</h3>
+        <p>
+          <span class="key">WASD</span> or <span class="key">Arrow Keys</span> -
+          Move
+        </p>
+        <p><span class="key">Mouse</span> - Look around</p>
+        <p><span class="key">Left Click</span> - Shoot</p>
+        <p><span class="key">Right Click</span> - Switch weapons</p>
+        <p><span class="key">ESC</span> - Pause game / Exit pointer lock</p>
+
+        <h3>🔫 Weapons</h3>
+        <p><strong>🔫 Assault Rifle:</strong> Single-shot precision weapon</p>
+        <p><strong>⚡ Machine Gun:</strong> Rapid-fire suppression weapon</p>
+
+        <h3>🧟 Zombies</h3>
+        <p>
+          <strong>🧟 Normal:</strong> Standard zombies (available from wave 1)
+        </p>
+        <p><strong>🏃‍♂️ Runner:</strong> Fast but weak (wave 2+)</p>
+        <p><strong>🦾 Tank:</strong> Slow but tough (wave 4+)</p>
+        <p><strong>👹 Brute:</strong> Large boss zombies (wave 6+)</p>
+
+        <h3>💊 Health System</h3>
+        <p>Collect health packs to restore 25 HP</p>
+        <p>Avoid zombie attacks to survive longer</p>
+        <p>Health packs spawn every 15 seconds</p>
+
+        <h3>🌊 Wave System</h3>
+        <p>Survive endless waves of increasingly difficult zombies</p>
+        <p>Each wave has more zombies and stronger types</p>
+      </div>
+      <div class="menu-buttons">
+        <button class="menu-button" onclick="showMainMenu()">
+          ← Back to Main Menu
+        </button>
+      </div>
+    </div>
+
+    <!-- Pause Menu -->
+    <div id="pauseMenu" class="menu-screen">
+      <div id="pauseOverlay"></div>
+      <h2>⏸️ Game Paused</h2>
+      <div class="menu-buttons">
+        <button class="menu-button success" onclick="resumeGame()">
+          ▶️ Resume Game
+        </button>
+        <button class="menu-button" onclick="showInstructions()">
+          📖 Instructions
+        </button>
+        <button class="menu-button danger" onclick="quitToMainMenu()">
+          🏠 Main Menu
+        </button>
+      </div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="gameOverScreen" class="menu-screen">
+      <h1>💀 GAME OVER 💀</h1>
+      <div class="stats">
+        <p>🌊 Waves Survived: <span id="finalWave">0</span></p>
+        <p>🎯 Zombies Killed: <span id="finalKills">0</span></p>
+        <p>💊 Health Packs Collected: <span id="finalHealthPacks">0</span></p>
+        <p>❤️ Final Health: <span id="finalHealth">0</span></p>
+      </div>
+      <div class="menu-buttons">
+        <button class="menu-button success" onclick="restartGame()">
+          🔄 Play Again
+        </button>
+      </div>
+    </div>
+
+    <!-- Game UI (hidden initially) -->
+    <div id="gameUI" style="display: none">
+      <div id="blocker">
+        <div id="instructions">
+          <h1>FPS Camera Controls</h1>
+          <p>
+            Move: <span class="highlight">WASD</span> or
+            <span class="highlight">Arrow Keys</span>
+          </p>
+          <p>Look: <span class="highlight">Mouse</span></p>
+          <p>Shoot: <span class="highlight">Left Click</span></p>
+          <p>Switch Weapon: <span class="highlight">Right Click</span></p>
+          <p>
+            <strong>Click to play</strong>
+          </p>
+          <p>Press <span class="highlight">ESC</span> to exit pointer lock</p>
+        </div>
+      </div>
+
+      <div class="info">
+        <div id="gameStatus">🎮 FPS Controls Active</div>
+        <div id="controls">WASD/Arrows to move, Mouse to look</div>
+        <div id="waveInfo">🌊 Wave 1</div>
+        <div id="killCount">💀 Kills: 0</div>
+        <div>🔫 Left click to shoot! Right click to switch weapons!</div>
+      </div>
+
+      <div class="audio-controls">
+        <label
+          >🔊 Sound:
+          <input
+            type="range"
+            id="masterVolume"
+            min="0"
+            max="100"
+            value="100"
+            oninput="updateMasterVolume(this.value)"
+        /></label>
+      </div>
+
+      <div id="crosshair"></div>
+
+      <div id="healthBar">
+        <div id="healthFill" style="width: 100%"></div>
+        <div id="healthText">Health: 100/100</div>
+      </div>
+
+      <div id="miniRadar">
+        <div id="radarContainer">
+          <canvas id="radarCanvas" width="120" height="120"></canvas>
+          <div id="radarLabel">RADAR</div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/PointerLockControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

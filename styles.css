@@ -1,0 +1,1014 @@
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #000;
+  font-family: Arial, sans-serif;
+}
+
+canvas {
+  display: block;
+}
+
+.info {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  color: white;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(20, 20, 30, 0.9) 100%
+  );
+  padding: 20px;
+  border-radius: 15px;
+  font-size: 16px;
+  z-index: 100;
+  border: 2px solid rgba(78, 205, 196, 0.3);
+  min-width: 280px;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 0 25px rgba(78, 205, 196, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  font-family: "Rajdhani", "Exo 2", "Space Mono", monospace;
+}
+
+/* Hide stats when instructions/blocker is active */
+#gameUI #blocker {
+  z-index: 2000;
+}
+
+#gameUI #blocker + .info {
+  display: none;
+}
+
+/* Show stats only when blocker is hidden */
+#gameUI #blocker[style*="display: none"] + .info,
+#gameUI #blocker[style*="display:none"] + .info {
+  display: block;
+}
+
+.info div {
+  margin: 8px 0;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  letter-spacing: 0.5px;
+  color: #e8e8e8;
+}
+
+.audio-controls {
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(20, 20, 30, 0.9) 100%
+  );
+  padding: 18px 22px;
+  border-radius: 15px;
+  color: white;
+  border: 2px solid rgba(78, 205, 196, 0.3);
+  z-index: 100;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 0 25px rgba(78, 205, 196, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  font-family: "Rajdhani", "Exo 2", "Space Mono", monospace;
+  min-width: 180px;
+}
+
+.audio-controls label {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #4ecdc4;
+  text-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+  letter-spacing: 1px;
+}
+
+.audio-controls input[type="range"] {
+  width: 120px;
+  margin-left: 15px;
+  height: 6px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: linear-gradient(
+    90deg,
+    rgba(78, 205, 196, 0.3) 0%,
+    rgba(78, 205, 196, 0.1) 100%
+  );
+  border-radius: 10px;
+  outline: none;
+  border: 1px solid rgba(78, 205, 196, 0.4);
+}
+
+.audio-controls input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4ecdc4 0%, #00cec9 100%);
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 15px rgba(78, 205, 196, 0.6);
+  transition: all 0.3s ease;
+}
+
+.audio-controls input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 20px rgba(78, 205, 196, 0.8);
+}
+
+.audio-controls input[type="range"]::-moz-range-thumb {
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4ecdc4 0%, #00cec9 100%);
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 15px rgba(78, 205, 196, 0.6);
+  transition: all 0.3s ease;
+}
+
+#blocker {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+#instructions {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 18px;
+  cursor: pointer;
+  color: white;
+  font-family: "Rajdhani", "Exo 2", "Space Mono", monospace;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(20, 20, 20, 0.4) 100%
+  );
+  backdrop-filter: blur(8px);
+}
+
+#instructions h1 {
+  font-size: 48px;
+  margin-bottom: 30px;
+  font-family: "Orbitron", "Rajdhani", "Exo 2", monospace;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  background: linear-gradient(135deg, #00cec9 0%, #4ecdc4 50%, #74b9ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 30px rgba(78, 205, 196, 0.5);
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+  from {
+    text-shadow: 0 0 30px rgba(78, 205, 196, 0.5);
+  }
+  to {
+    text-shadow: 0 0 50px rgba(78, 205, 196, 0.8);
+  }
+}
+
+#instructions p {
+  margin: 15px 0;
+  max-width: 600px;
+  line-height: 1.8;
+  font-size: 20px;
+  font-weight: 400;
+  color: #e8e8e8;
+  letter-spacing: 1px;
+}
+
+#instructions .highlight {
+  background: linear-gradient(
+    145deg,
+    rgba(78, 205, 196, 0.2) 0%,
+    rgba(78, 205, 196, 0.1) 100%
+  );
+  border: 1px solid rgba(78, 205, 196, 0.4);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-family: "Fira Code", "SF Mono", "Monaco", monospace;
+  color: #4ecdc4;
+  text-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+  letter-spacing: 1px;
+}
+
+#crosshair {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  pointer-events: none;
+  z-index: 1000;
+  display: block;
+}
+
+#crosshair::before,
+#crosshair::after {
+  content: "";
+  position: absolute;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+  transition: all 0.2s ease;
+}
+
+/* Target lock states */
+#crosshair.target-lock::before,
+#crosshair.target-lock::after {
+  background: rgba(255, 0, 0, 0.9);
+  box-shadow: 0 0 4px rgba(255, 0, 0, 0.8);
+}
+
+#crosshair.target-lock {
+  animation: targetPulse 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes targetPulse {
+  from {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+#crosshair::before {
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 2px;
+}
+
+#crosshair::after {
+  left: 50%;
+  top: 10px;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 10px;
+}
+
+#healthBar {
+  position: fixed;
+  bottom: 25px;
+  left: 25px;
+  width: 250px;
+  height: 28px;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(20, 20, 30, 0.9) 100%
+  );
+  border: 2px solid rgba(78, 205, 196, 0.4);
+  border-radius: 15px;
+  z-index: 1000;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 0 25px rgba(78, 205, 196, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+#healthBar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  animation: healthBarShimmer 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes healthBarShimmer {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+#healthFill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    #e74c3c 0%,
+    #f39c12 25%,
+    #f1c40f 50%,
+    #2ecc71 75%,
+    #27ae60 100%
+  );
+  border-radius: 12px;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+#healthFill::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  animation: healthGlow 3s ease-in-out infinite;
+}
+
+@keyframes healthGlow {
+  0% {
+    left: -100%;
+  }
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: -100%;
+  }
+}
+
+#healthText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: "Rajdhani", "Exo 2", "Space Mono", monospace;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  letter-spacing: 1px;
+  z-index: 10;
+}
+
+/* Advanced Military-Grade Radar */
+#miniRadar {
+  position: fixed;
+  top: 25px;
+  right: 25px;
+  z-index: 1500;
+}
+
+#radarContainer {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 20, 20, 0.95) 100%
+  );
+  border: 3px solid rgba(0, 255, 200, 0.8);
+  border-radius: 50%;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 40px rgba(0, 255, 200, 0.4),
+    inset 0 0 30px rgba(0, 255, 200, 0.1), 0 0 80px rgba(0, 255, 200, 0.2);
+  overflow: hidden;
+}
+
+/* Radar Grid Lines */
+#radarContainer::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 170px;
+  height: 170px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: 
+    /* Horizontal line */ linear-gradient(
+      to right,
+      transparent 49%,
+      rgba(0, 255, 200, 0.3) 50%,
+      transparent 51%
+    ),
+    /* Vertical line */
+      linear-gradient(
+        to bottom,
+        transparent 49%,
+        rgba(0, 255, 200, 0.3) 50%,
+        transparent 51%
+      ),
+    /* Concentric circles */
+      radial-gradient(
+        circle at center,
+        transparent 25%,
+        rgba(0, 255, 200, 0.2) 26%,
+        transparent 27%
+      ),
+    radial-gradient(
+      circle at center,
+      transparent 50%,
+      rgba(0, 255, 200, 0.2) 51%,
+      transparent 52%
+    ),
+    radial-gradient(
+      circle at center,
+      transparent 75%,
+      rgba(0, 255, 200, 0.2) 76%,
+      transparent 77%
+    );
+  pointer-events: none;
+}
+
+#radarCanvas {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 255, 200, 0.05) 0%,
+    rgba(0, 100, 100, 0.1) 50%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+}
+
+#radarLabel {
+  position: absolute;
+  bottom: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(0, 255, 200, 0.9);
+  font-size: 12px;
+  font-weight: 700;
+  font-family: "Orbitron", "Rajdhani", "Space Mono", monospace;
+  letter-spacing: 3px;
+  text-shadow: 0 0 10px rgba(0, 255, 200, 0.7);
+  text-transform: uppercase;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 255, 200, 0.1) 50%,
+    transparent 100%
+  );
+  padding: 5px 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 255, 200, 0.3);
+}
+
+/* Advanced Radar Sweep with Multiple Layers */
+#radarContainer::before {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 280deg,
+    rgba(0, 255, 200, 0.1) 300deg,
+    rgba(0, 255, 200, 0.3) 320deg,
+    rgba(0, 255, 200, 0.6) 340deg,
+    rgba(0, 255, 200, 0.9) 350deg,
+    rgba(0, 255, 200, 0.6) 360deg
+  );
+  animation: advancedRadarSweep 4s linear infinite;
+  pointer-events: none;
+}
+
+/* Radar Pulse Effect */
+#radarContainer {
+  animation: radarPulse 2s ease-in-out infinite;
+}
+
+@keyframes advancedRadarSweep {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes radarPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 40px rgba(0, 255, 200, 0.4),
+      inset 0 0 30px rgba(0, 255, 200, 0.1), 0 0 80px rgba(0, 255, 200, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 60px rgba(0, 255, 200, 0.6),
+      inset 0 0 40px rgba(0, 255, 200, 0.2), 0 0 120px rgba(0, 255, 200, 0.3);
+  }
+}
+
+/* Radar Corner Indicators */
+#radarContainer::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    rgba(0, 255, 200, 0.8) 0deg,
+    transparent 2deg,
+    transparent 88deg,
+    rgba(0, 255, 200, 0.8) 90deg,
+    transparent 92deg,
+    transparent 178deg,
+    rgba(0, 255, 200, 0.8) 180deg,
+    transparent 182deg,
+    transparent 268deg,
+    rgba(0, 255, 200, 0.8) 270deg,
+    transparent 272deg,
+    transparent 358deg,
+    rgba(0, 255, 200, 0.8) 360deg
+  );
+  animation: radarIndicators 6s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes radarIndicators {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+/* Menu System Styles */
+.menu-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  text-align: center;
+  z-index: 2000;
+  background: linear-gradient(
+    135deg,
+    #0c0c0c 0%,
+    #1a1a1a 25%,
+    #2d1b1b 50%,
+    #1a0000 75%,
+    #000000 100%
+  );
+  overflow-y: auto;
+  position: relative;
+}
+
+/* Add subtle animated overlay */
+.menu-screen::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+      circle at 30% 70%,
+      rgba(255, 0, 0, 0.03) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 70% 30%,
+      rgba(139, 0, 0, 0.02) 0%,
+      transparent 40%
+    );
+  animation: subtleGlow 8s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes subtleGlow {
+  0% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
+
+.menu-screen h1 {
+  font-size: 64px;
+  margin-bottom: 40px;
+  font-family: "Orbitron", "Exo 2", "Rajdhani", "Space Mono", monospace;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  background: linear-gradient(
+    135deg,
+    #ff0000 0%,
+    #ff6b6b 25%,
+    #ff0000 50%,
+    #cc0000 75%,
+    #8b0000 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 300% 300%;
+  animation: zombieGlow 4s ease-in-out infinite alternate,
+    textShimmer 6s ease-in-out infinite;
+  text-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+  position: relative;
+}
+
+@keyframes zombieGlow {
+  0% {
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 0 0 20px rgba(255, 0, 0, 0.6),
+      0 0 30px rgba(255, 0, 0, 0.4);
+  }
+  100% {
+    text-shadow: 0 0 20px rgba(255, 0, 0, 1), 0 0 30px rgba(255, 0, 0, 0.8),
+      0 0 40px rgba(255, 0, 0, 0.6);
+  }
+}
+
+@keyframes textShimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.menu-screen h2 {
+  font-size: 42px;
+  margin-bottom: 30px;
+  font-family: "Orbitron", "Exo 2", "Rajdhani", "Space Mono", monospace;
+  font-weight: 700;
+  color: #4ecdc4;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-shadow: 0 0 20px rgba(78, 205, 196, 0.6);
+}
+
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.menu-button {
+  padding: 18px 35px;
+  font-size: 20px;
+  font-weight: 600;
+  font-family: "Rajdhani", "Exo 2", "Space Mono", monospace;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: linear-gradient(145deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+  color: #ffffff;
+  border: 2px solid #444;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  min-width: 250px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.menu-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.menu-button:hover::before {
+  left: 100%;
+}
+
+.menu-button:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 0 40px rgba(255, 255, 255, 0.1);
+  background: linear-gradient(145deg, #2d2d2d 0%, #404040 50%, #2d2d2d 100%);
+  border-color: #666;
+  color: #fff;
+}
+
+.menu-button.danger {
+  background: linear-gradient(145deg, #e84393 0%, #fd79a8 50%, #e84393 100%);
+  border-color: #e84393;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), 0 0 20px rgba(232, 67, 147, 0.3);
+}
+
+.menu-button.danger:hover {
+  background: linear-gradient(145deg, #fd79a8 0%, #fdcb6e 50%, #fd79a8 100%);
+  border-color: #fdcb6e;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 40px rgba(253, 203, 110, 0.4);
+}
+
+.menu-button.success {
+  background: linear-gradient(145deg, #00b894 0%, #00cec9 50%, #00b894 100%);
+  border-color: #00b894;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 184, 148, 0.3);
+}
+
+.menu-button.success:hover {
+  background: linear-gradient(145deg, #00cec9 0%, #74b9ff 50%, #00cec9 100%);
+  border-color: #74b9ff;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 40px rgba(116, 185, 255, 0.4);
+}
+
+.stats {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(20, 20, 20, 0.9) 100%
+  );
+  padding: 35px;
+  border-radius: 20px;
+  margin: 30px 0;
+  border: 2px solid rgba(78, 205, 196, 0.3);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 0 40px rgba(78, 205, 196, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.stats p {
+  font-size: 24px;
+  margin: 20px 0;
+  font-family: "Rajdhani", "Exo 2", "Space Mono", monospace;
+  font-weight: 600;
+  color: #e8e8e8;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.instructions-content {
+  max-width: 700px;
+  max-height: 70vh;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(20, 20, 20, 0.9) 100%
+  );
+  padding: 30px;
+  border-radius: 20px;
+  border: 2px solid rgba(78, 205, 196, 0.3);
+  backdrop-filter: blur(15px);
+  overflow-y: auto;
+  box-shadow: 0 0 40px rgba(78, 205, 196, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.instructions-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.instructions-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.instructions-content::-webkit-scrollbar-thumb {
+  background: rgba(139, 0, 0, 0.8);
+  border-radius: 4px;
+}
+
+.instructions-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 0, 0, 0.8);
+}
+
+.instructions-content h3 {
+  color: #4ecdc4;
+  margin-bottom: 20px;
+  margin-top: 25px;
+  font-size: 28px;
+  font-family: "Rajdhani", "Exo 2", "Space Mono", monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 15px rgba(78, 205, 196, 0.5);
+  border-bottom: 2px solid rgba(78, 205, 196, 0.3);
+  padding-bottom: 10px;
+}
+
+.instructions-content h3:first-of-type {
+  margin-top: 0;
+}
+
+.instructions-content p {
+  margin: 15px 0;
+  line-height: 1.8;
+  font-size: 18px;
+  font-family: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  color: #e8e8e8;
+  font-weight: 300;
+}
+
+.instructions-content .key {
+  background: linear-gradient(
+    145deg,
+    rgba(78, 205, 196, 0.2) 0%,
+    rgba(78, 205, 196, 0.1) 100%
+  );
+  border: 1px solid rgba(78, 205, 196, 0.4);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-family: "Fira Code", "SF Mono", "Monaco", monospace;
+  color: #4ecdc4;
+  text-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+
+#pauseOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+}
+
+/* Hide screens by default */
+.menu-screen {
+  display: none;
+}
+
+.menu-screen.active {
+  display: flex;
+}
+
+/* Social Media Icons */
+.social-icons {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  z-index: 2001;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(139, 0, 0, 0.8);
+  border: 2px solid #8b0000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.social-icon:hover {
+  background: rgba(255, 0, 0, 0.9);
+  border-color: #ff0000;
+  transform: translateY(-3px) scale(1.1);
+  box-shadow: 0 8px 25px rgba(255, 0, 0, 0.5);
+  color: white;
+}
+
+.social-icon.github:hover {
+  background: rgba(33, 33, 33, 0.9);
+  border-color: #333;
+}
+.social-icon.instagram:hover {
+  background: linear-gradient(
+    45deg,
+    #f09433 0%,
+    #e6683c 25%,
+    #dc2743 50%,
+    #cc2366 75%,
+    #bc1888 100%
+  );
+}
+.social-icon.linkedin:hover {
+  background: rgba(0, 119, 181, 0.9);
+  border-color: #0077b5;
+}
+.social-icon.twitter:hover {
+  background: rgba(0, 0, 0, 0.9);
+  border-color: #333;
+}
+.social-icon.youtube:hover {
+  background: rgba(255, 0, 0, 0.9);
+  border-color: #ff0000;
+}
+
+.made-by {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #aaa;
+  text-align: center;
+  font-weight: 400;
+  letter-spacing: 2px;
+  opacity: 0.8;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  text-transform: uppercase;
+}
+
+/* Style for "Built with Three.js" text */
+.menu-screen p {
+  font-family: "Inter", "Segoe UI", sans-serif;
+  font-size: 16px;
+  color: #999;
+  opacity: 0.8;
+  letter-spacing: 1px;
+  font-weight: 300;
+}
+
+/* Zombie particles animation */
+@keyframes zombieParticles {
+  0% {
+    background-position: 0% 0%;
+    opacity: 0.1;
+  }
+  50% {
+    background-position: 100% 100%;
+    opacity: 0.3;
+  }
+  100% {
+    background-position: 0% 0%;
+    opacity: 0.1;
+  }
+}
+
+.menu-screen::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+      1px 1px at 20px 30px,
+      rgba(255, 0, 0, 0.3),
+      transparent
+    ),
+    radial-gradient(1px 1px at 40px 70px, rgba(139, 0, 0, 0.2), transparent),
+    radial-gradient(1px 1px at 90px 40px, rgba(255, 0, 0, 0.1), transparent),
+    radial-gradient(1px 1px at 130px 80px, rgba(139, 0, 0, 0.3), transparent),
+    radial-gradient(1px 1px at 160px 30px, rgba(255, 0, 0, 0.2), transparent);
+  background-repeat: repeat;
+  background-size: 200px 100px;
+  animation: zombieParticles 10s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
