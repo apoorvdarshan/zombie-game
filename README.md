@@ -56,16 +56,16 @@ Developer's handles (also advertised on in-game buildings):
   <a href="https://github.com/aopv">
     <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/>
   </a>
-  <a href="https://linkedin.com/in/apoorvdarshan">
+  <a href="https://www.linkedin.com/in/aopv/">
     <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/>
   </a>
-  <a href="https://twitter.com/apoorvdarshan">
+  <a href="https://x.com/aporvv">
     <img src="https://img.shields.io/badge/-000000?style=for-the-badge&logo=x&logoColor=white" alt="X"/>
   </a>
-  <a href="https://youtube.com/@apoorvdarshan">
+  <a href="https://www.youtube.com/@aopv">
     <img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="YouTube"/>
   </a>
-  <a href="https://instagram.com/apoorvdarshan">
+  <a href="https://www.instagram.com/aporvvv">
     <img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram"/>
   </a>
 </p>
