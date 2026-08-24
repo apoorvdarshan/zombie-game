@@ -3,10 +3,10 @@
 A modern 3D zombie survival game built with Three.js featuring professional UI design, authentic weapon sounds, and advanced tactical systems.
 
 <p align="center">
-  <a href="https://apoorvdarshan.github.io/zombie-game">
+  <a href="https://zombie-game.aopv.dev">
     <img src="https://img.shields.io/badge/🎮_Play_Live-4CAF50?style=for-the-badge&logoColor=white" alt="Play Live"/>
   </a>
-  <a href="https://github.com/apoorvdarshan/zombie-game">
+  <a href="https://github.com/aopv/zombie-game">
     <img src="https://img.shields.io/badge/📂_View_Code-181717?style=for-the-badge&logo=github&logoColor=white" alt="View Code"/>
   </a>
 </p>
@@ -53,7 +53,7 @@ Or use VS Code Live Server extension.
 Developer's handles (also advertised on in-game buildings):
 
 <p align="center">
-  <a href="https://github.com/apoorvdarshan">
+  <a href="https://github.com/aopv">
     <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/>
   </a>
   <a href="https://linkedin.com/in/apoorvdarshan">
