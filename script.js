@@ -641,7 +641,7 @@ function createBurnedBuildings() {
 
       ctx.font = "bold 32px Arial";
       ctx.fillText("YouTube: @apoorvdarshan", canvas.width / 2, 170);
-      ctx.fillText("Instagram: @apoorvcodex", canvas.width / 2, 220);
+      ctx.fillText("Instagram: @apoorvcodes", canvas.width / 2, 220);
 
       ctx.font = "bold 28px Arial";
       ctx.fillText("LIKE & SUBSCRIBE!", canvas.width / 2, 290);
